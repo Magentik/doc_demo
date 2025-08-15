@@ -1,0 +1,38 @@
+{
+  "sarah": [
+    {
+      "q": "What can I do so that cancer does not relapse?",
+      "a": "Sarah, I know this is weighing on your mind. The good news is your treatment so far has been very effective, and your risk is low. The best things you can do now are to keep taking your hormone therapy, come to all your follow-up visits, and make small lifestyle changes like gentle daily walks and balanced meals. We’ll take it one step at a time so it doesn’t feel overwhelming, and I can check in with you regularly to give you peace of mind."
+    },
+    {
+      "q": "I’ve been feeling unusually tired lately — should I be worried that the cancer is back?",
+      "a": "Sarah, I hear how unsettling that fatigue feels. In most cases like yours, it’s a side effect of the medication and the healing process, not a sign of cancer returning. But we’ll keep an eye on it together. If you notice any new or worsening symptoms, just let me know right away. I can also share a simple self-check guide so you know what’s normal and what’s not."
+    },
+    {
+      "q": "What lifestyle changes can help reduce the risk of recurrence?",
+      "a": "Sarah, you don’t need to overhaul everything at once. The most important steps are regular gentle movement, eating more fruits, vegetables, and lean proteins, and avoiding smoking and heavy drinking. We can make a small, simple plan that fits around your caregiving so it feels doable rather than stressful."
+    },
+    {
+      "q": "How do I talk to my family about my cancer without making them too anxious?",
+      "a": "Sarah, it’s so thoughtful that you want to protect your kids and your mom. Using honest but simple language, reassuring them that your doctors are taking good care of you, and letting them ask questions can help. I can give you age-appropriate phrases and even recommend a children’s book that explains cancer gently."
+    }
+  ],
+  "michael": [
+    {
+      "q": "What can I do so that cancer does not relapse?",
+      "a": "Michael, evidence shows that adherence to your hormone therapy protocol, regular follow-up screenings, and modifiable lifestyle factors—particularly structured aerobic exercise, Mediterranean dietary adherence, and BMI optimization—provide measurable risk reduction. Smith et al. (JCO, 2021) reports up to an 18% relative reduction in recurrence risk when these are followed consistently."
+    },
+    {
+      "q": "I’ve been feeling unusually tired lately — should I be worried that the cancer is back?",
+      "a": "Michael, given your last stable CEA readings and imaging, fatigue alone is not a strong recurrence indicator. It is likely multifactorial—residual post-treatment effects, occupational stress, or lifestyle variables. Still, I recommend running a CBC and metabolic panel to rule out secondary causes and maintain your trendline data integrity."
+    },
+    {
+      "q": "What lifestyle changes can help reduce the risk of recurrence?",
+      "a": "Michael, meta-analyses indicate that moderate-to-vigorous physical activity (150–300 minutes/week), adherence to a Mediterranean dietary pattern, and maintaining BMI in the 20–25 range correlate with statistically significant recurrence reduction. Would you like me to forward you a summary table of hazard ratios from the latest cohort studies?"
+    },
+    {
+      "q": "How do I talk to my family about my cancer without making them too anxious?",
+      "a": "Michael, frame the conversation factually with key data points—current remission status, follow-up schedule, and actual recurrence probability. This allows family members to contextualize the situation objectively. Avoid speculative language, and anchor the discussion in your management plan to minimize unnecessary anxiety."
+    }
+  ]
+}
