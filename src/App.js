@@ -25,10 +25,13 @@ const sarahProfile = {
   past: [
     "Hesitant to ask too many questions for fear of 'bothering' the doctor",
     "Needs reassurance that she is making the right treatment decisions",
+    "Often brings a family member for support",
+    "Asks for practical advice on balancing treatment and caregiving duties",
   ],
   challenges: [
     "Worries about how her illness affects her children emotionally",
     "Financial stress due to missed work and medical bills",
+    "Struggles to prioritize her own recovery while caring for others",
   ],
   example: `Doctor, I’ve been feeling so tired lately, and I’m worried it’s a sign the cancer might be coming back. Could it just be the medication? And… how can I explain all this to my kids without scaring them?`,
 };
@@ -57,11 +60,13 @@ const michaelProfile = {
   past: [
     "Always arrives prepared with spreadsheets of lab results and medical history",
     "Asks for clinical trial data and statistical outcomes",
+    "Requests detailed explanations of treatment side effects and probabilities",
+    "Prefers printed medical literature over verbal reassurance",
   ],
   challenges: [
     "Balances demanding work schedule with medical appointments",
     "Concerned about long-term recurrence risk",
-
+    "Interested in preventive lifestyle changes backed by scientific evidence",
   ],
   example: `Doctor, based on the last CEA trend and your experience, what’s the statistical likelihood of recurrence in my case over the next five years? Could you also share any peer-reviewed studies supporting lifestyle interventions for reducing that risk?`,
 };
@@ -72,12 +77,13 @@ const michaelProfile = {
 function useQA() {
   const [qa, setQA] = useState({ sarah: [], michael: [] });
   useEffect(() => {
-    fetch("/qa.json")
+    fetch("/doc_demo/qa.json")
       .then(r => r.json())
       .then(setQA)
       .catch(() => setQA({ sarah: [], michael: [] }));
   }, []);
   // Convert array to map for fuzzy lookup
+  console.log("Loaded Q&A data:", qa);
   const sarahQA = Object.fromEntries((qa.sarah || []).map(x => [x.q, x.a]));
   const michaelQA = Object.fromEntries((qa.michael || []).map(x => [x.q, x.a]));
   return { sarahQA, michaelQA };
@@ -188,7 +194,7 @@ function ChatScreen({ profile, qaMap, defaultResponse, align }) {
     setInput("");
     setTimeout(() => {
       setChat(prev => [...prev, {
-        sender: "Ava",
+        sender: "AI",
         text: aiText,
         avatar: "https://cdn.jsdelivr.net/gh/magnetikonline/svg-assets@main/openai-gpt-icon.png"
       }]);
@@ -204,13 +210,13 @@ function ChatScreen({ profile, qaMap, defaultResponse, align }) {
             key={i}
             sender={msg.sender}
             text={msg.text}
-            align={msg.sender === "Ava" ? "ai" : align}
+            align={msg.sender === "AI" ? "ai" : align}
             avatar={msg.avatar}
           />
         ))}
         {thinking && (
           <ChatBubble
-            sender="Ava"
+            sender="AI"
             text=""
             align="ai"
             avatar="https://cdn.jsdelivr.net/gh/magnetikonline/svg-assets@main/openai-gpt-icon.png"
@@ -262,46 +268,28 @@ export default function App() {
   return (
     <div className="split-screen">
       <div className="side left">
-        <div className="profile-and-chat">
-          <ProfileCard profile={sarahProfile} />
-          <div className="chat-title">Sarah’s Chat with Ava</div>
-          <ChatScreen
-            profile={sarahProfile}
-            qaMap={sarahQA}
-            defaultResponse={defaultSarahResponse}
-            align="left"
-          />
-        </div>
+        <ProfileCard profile={sarahProfile} />
+        <div className="chat-title">Sarah’s Chat with AI</div>
+        <ChatScreen
+          profile={sarahProfile}
+          qaMap={sarahQA}
+          defaultResponse={defaultSarahResponse}
+          align="left"
+        />
       </div>
       <div className="divider" />
       <div className="side right">
-        <div className="profile-and-chat">
-          <ProfileCard profile={michaelProfile} />
-          <div className="chat-title">Michael’s Chat with Ava</div>
-          <ChatScreen
-            profile={michaelProfile}
-            qaMap={michaelQA}
-            defaultResponse={defaultMichaelResponse}
-            align="right"
-          />
-        </div>
+        <ProfileCard profile={michaelProfile} />
+        <div className="chat-title">Michael’s Chat with AI</div>
+        <ChatScreen
+          profile={michaelProfile}
+          qaMap={michaelQA}
+          defaultResponse={defaultMichaelResponse}
+          align="right"
+        />
       </div>
-  {/* Medical SVG overlay removed as per user request */}
       <style>{`
-        body, html, #root {
-          height: 100%;
-          margin: 0;
-          font-family: 'Segoe UI', Arial, sans-serif;
-          background: #f6fafd;
-          background-image:
-            linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.93)),
-            url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80');
-          background-size: cover, cover;
-          background-repeat: no-repeat, no-repeat;
-          background-attachment: fixed, fixed;
-          background-position: center, center;
-        }
-  /* .medical-bg-svg styles removed */
+        body, html, #root { height: 100%; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #f6fafd; }
         .split-screen {
           display: flex;
           height: 100vh;
@@ -312,23 +300,8 @@ export default function App() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-          padding: 0;
-          min-width: 0;
-          background: none;
-        }
-        .profile-and-chat {
-          width: 100%;
-          max-width: 480px;
-          margin: 32px auto 32px auto;
-          background: rgba(255,255,255,0.92);
-          border-radius: 28px;
-          box-shadow: 0 6px 32px 0 rgba(60,120,180,0.13), 0 1.5px 8px 0 rgba(60,120,180,0.07);
-          padding: 32px 28px 24px 28px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          transition: box-shadow 0.2s;
+          padding: 32px 16px 16px 16px;
+          overflow-y: auto;
         }
         .divider {
           width: 2px;
@@ -336,7 +309,7 @@ export default function App() {
           margin: 0 0.5rem;
         }
         .profile-card {
-          background: linear-gradient(120deg, #fafdff 60%, #eaf6fb 100%);
+          background: #fff;
           border-radius: 18px;
           box-shadow: 0 2px 16px rgba(60,120,180,0.10);
           padding: 24px 20px 18px 20px;
@@ -344,7 +317,6 @@ export default function App() {
           width: 100%;
           max-width: 420px;
           position: relative;
-          border: 1.5px solid #e3eaf3;
         }
         .profile-img-wrap {
           display: flex;
@@ -374,12 +346,10 @@ export default function App() {
           color: #2a4d69;
         }
         .chat-title {
-          font-weight: 700;
-          color: #2a4d69;
-          margin: 10px 0 18px 0;
-          font-size: 1.18em;
-          letter-spacing: 0.01em;
-          text-align: center;
+          font-weight: 600;
+          color: #3976a3;
+          margin: 10px 0 8px 0;
+          font-size: 1.1em;
         }
         .chat-screen {
           width: 100%;
@@ -390,8 +360,7 @@ export default function App() {
           border-radius: 16px;
           box-shadow: 0 1px 8px rgba(60,120,180,0.06);
           padding: 12px 0 0 0;
-          margin-bottom: 0;
-          border: 1.5px solid #e3eaf3;
+          margin-bottom: 10px;
         }
         .chat-session {
           width: 100%;
@@ -505,10 +474,6 @@ export default function App() {
         @media (max-width: 900px) {
           .split-screen { flex-direction: column; }
           .divider { width: 100%; height: 2px; margin: 0.5rem 0; }
-          .profile-and-chat { max-width: 98vw; padding: 16px 2vw 12px 2vw; margin: 18px auto; }
-        }
-        @media (max-width: 600px) {
-          .profile-and-chat { max-width: 100vw; padding: 8px 0 8px 0; border-radius: 0; }
         }
       `}</style>
     </div>
