@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/doc_demo/static/js/main.ad37bddb.js",
+    "main.js": "/doc_demo/static/js/main.ef2e43a6.js",
     "index.html": "/doc_demo/index.html",
-    "main.ad37bddb.js.map": "/doc_demo/static/js/main.ad37bddb.js.map"
+    "main.ef2e43a6.js.map": "/doc_demo/static/js/main.ef2e43a6.js.map"
   },
   "entrypoints": [
-    "static/js/main.ad37bddb.js"
+    "static/js/main.ef2e43a6.js"
   ]
 }
